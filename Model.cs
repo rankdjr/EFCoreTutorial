@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 
-
 public class BloggingContext : DbContext
 {
     public DbSet<Blog> Blogs { get; set; }
@@ -12,7 +11,7 @@ public class BloggingContext : DbContext
     {
         var folder = Environment.SpecialFolder.LocalApplicationData;
         var path = Environment.GetFolderPath(folder);
-        DbPath = Path.Join(path, "blogging.db");
+        DbPath = System.IO.Path.Join(path, "blogging.db");
     }
 
     // The following configures EF to create a Sqlite database file in the
@@ -24,7 +23,7 @@ public class BloggingContext : DbContext
 public class Blog
 {
     public int BlogId { get; set; }
-    public required string Url { get; set; }
+    public string Url { get; set; }
 
     public List<Post> Posts { get; } = new();
 }
@@ -32,9 +31,9 @@ public class Blog
 public class Post
 {
     public int PostId { get; set; }
-    public required string Title { get; set; }
-    public required string Content { get; set; }
+    public string Title { get; set; }
+    public string Content { get; set; }
 
     public int BlogId { get; set; }
-    public required Blog Blog { get; set; }
+    public Blog Blog { get; set; }
 }
